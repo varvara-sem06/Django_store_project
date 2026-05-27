@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <!-- Логотип / Название сайта -->
+        <a class="navbar-brand" href="{% url 'product_list' %}">
+            🛍️ Мой магазин
+        </a>
+        
+        <!-- Кнопка для мобильных устройств -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Основное меню -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <!-- Пункт: Каталог -->
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'product_list' %}active{% endif %}" 
+                       href="{% url 'product_list' %}">
+                        📋 Каталог
+                    </a>
+                </li>
+                
+                <!-- Пункт: Добавить товар (для всех пользователей) -->
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'product_create' %}active{% endif %}" 
+                       href="{% url 'product_create' %}">
+                        ➕ Добавить товар
+                    </a>
+                </li>
+                
+                <!-- Пункт: Админка (только для авторизованных) -->
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/">
+                            🔧 Админка
+                        </a>
+                    </li>
+                {% endif %}
+                
+                <!-- Пункт: О магазине -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        ℹ️ О нас
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
