@@ -1,0 +1,116 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Каталог товаров{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Наши товары</h1>
+    
+    {% if page_obj %}
+        <div class="row">
+            {% for product in page_obj %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <span class="text-muted">Нет изображения</span>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text text-muted small">
+                                Категория: {{ product.category.name }}
+                            </p>
+                            <p class="card-text">
+                                {{ product.description|truncatechars:100 }}
+                            </p>
+                            <p class="card-text h4 text-primary">
+                                {{ product.price }} ₽
+                            </p>
+                            <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">
+                                Подробнее →
+                            </a>
+                        </div>
+                        <div class="card-footer text-muted small">
+                            Добавлен: {{ product.created_at|date:"d.m.Y" }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Пагинация (постраничный вывод) -->
+        {% if page_obj.has_other_pages %}
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <!-- Первая страница -->
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1">«« Первая</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">« Назад</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">«« Первая</span>
+                        </li>
+                        <li class="page-item disabled">
+                            <span class="page-link">« Назад</span>
+                        </li>
+                    {% endif %}
+                    
+                    <!-- Номера страниц (показываем 3 страницы вокруг текущей) -->
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    <!-- Последняя страница -->
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперед »</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Последняя »»</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">Вперед »</span>
+                        </li>
+                        <li class="page-item disabled">
+                            <span class="page-link">Последняя »»</span>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+        
+        <!-- Информация о количестве товаров -->
+        <div class="text-center text-muted mt-3">
+            <small>
+                Показано {{ page_obj.start_index }} - {{ page_obj.end_index }} 
+                из {{ page_obj.paginator.count }} товаров
+            </small>
+        </div>
+        
+    {% else %}
+        <!-- Если товаров нет -->
+        <div class="alert alert-info text-center">
+            <h4>Товаров пока нет</h4>
+            <p>Станьте первым, кто добавит товар!</p>
+            <a href="{% url 'product_create' %}" class="btn btn-success">Добавить товар</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
