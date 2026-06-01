@@ -1,161 +1,99 @@
-# 🛍️ SkyStore - Интернет-магазин цифровых товаров
+# SkyStore — Digital Goods Online Store
 
-## 📖 О проекте
+A Django-based web application for selling digital goods: plugins, scripts, Telegram bots, and web applications. Styled with Bootstrap 5.
 
-**SkyStore** — это веб-приложение интернет-магазина для продажи цифровых товаров: плагинов, скриптов, телеграм-ботов и веб-приложений. Проект разработан на Django с использованием Bootstrap 5 для стилизации.
+Built as part of a Django web development course module.
 
-Проект создан в рамках учебного модуля по веб-разработке на Django.
+## Features
 
----
+| Page | Description |
+|------|-------------|
+| Home / Catalog | Product cards with price, description, and "Buy" button |
+| Contacts | Feedback form with POST request handling and server-side console output |
 
-## 🚀 Функционал
+### Additional Features
 
-| Страница | Описание |
-|----------|----------|
-| **Главная / Каталог** | Карточки товаров с ценой, описанием и кнопкой "Купить" |
-| **Контакты** | Форма обратной связи с отправкой POST-запроса и выводом данных в консоль |
+- Responsive layout with Bootstrap 5
+- Feedback form with field validation
+- Success message after form submission
+- Form data output to server console
 
-### Дополнительный функционал
-- ✅ Адаптивная верстка на Bootstrap 5
-- ✅ Форма обратной связи с валидацией полей
-- ✅ Сообщение об успешной отправке формы
-- ✅ Вывод данных из формы в консоль сервера
+## Tech Stack
 
----
+- Python 3.11+
+- Django 4.2
+- Bootstrap 5
+- HTML5 / CSS3
 
-## 🛠️ Технологии
-
-- **Python 3.11+**
-- **Django 4.2** — веб-фреймворк
-- **Bootstrap 5** — CSS-фреймворк
-- **HTML5 / CSS3**
-
----
-
-## 📁 Структура проекта
-
-📝 Создайте файл README.md в корне проекта
-
-bash
-touch README.md
-📄 Скопируйте этот код в README.md
-
-markdown
-# 🛍️ SkyStore - Интернет-магазин цифровых товаров
-
-## 📖 О проекте
-
-**SkyStore** — это веб-приложение интернет-магазина для продажи цифровых товаров: плагинов, скриптов, телеграм-ботов и веб-приложений. Проект разработан на Django с использованием Bootstrap 5 для стилизации.
-
-Проект создан в рамках учебного модуля по веб-разработке на Django.
-
----
-
-## 🚀 Функционал
-
-| Страница | Описание |
-|----------|----------|
-| **Главная / Каталог** | Карточки товаров с ценой, описанием и кнопкой "Купить" |
-| **Контакты** | Форма обратной связи с отправкой POST-запроса и выводом данных в консоль |
-
-### Дополнительный функционал
-- ✅ Адаптивная верстка на Bootstrap 5
-- ✅ Форма обратной связи с валидацией полей
-- ✅ Сообщение об успешной отправке формы
-- ✅ Вывод данных из формы в консоль сервера
-
----
-
-## 🛠️ Технологии
-
-- **Python 3.11+**
-- **Django 4.2** — веб-фреймворк
-- **Bootstrap 5** — CSS-фреймворк
-- **HTML5 / CSS3**
-
----
-
-## 📁 Структура проекта
+## Project Structure
 Django_store_project/
 ├── manage.py
 ├── requirements.txt
 ├── .gitignore
 ├── README.md
 │
-├── django_shop/ # Настройки проекта
+├── django_shop/ # Project settings
 │ ├── settings.py
 │ ├── urls.py
 │ └── wsgi.py
 │
-└── catalog/ # Приложение "Каталог"
-├── views.py # Контроллеры
-├── urls.py # Маршруты приложения
-├── models.py # Модели (в разработке)
+└── catalog/ # Catalog app
+├── views.py
+├── urls.py
+├── models.py
 └── templates/
 └── catalog/
-├── home.html # Главная страница
-└── contacts.html # Страница контактов
+├── home.html
+└── contacts.html
 
-📬 Проверка работы формы обратной связи
+## Feedback Form
 
-Перейдите на страницу Контакты: http://127.0.0.1:8000/contacts/
-Заполните поля:
+Go to Contacts: http://127.0.0.1:8000/contacts/
+Fill in the fields:
 
-Имя (например, "Иван")
-Email (например, "ivan@example.com")
-Сообщение (например, "Здравствуйте! Хочу купить товар")
-Нажмите кнопку "Отправить сообщение"
-Результат:
+Name (e.g. "Ivan")
+Email (e.g. "ivan@example.com")
+Message (e.g. "Hello! I'd like to buy a product")
+Click "Send message"
+A green success message will appear on the page, and the server console will output:
+Message from Ivan
+Email: ivan@example.com
+Message: Hello! I'd like to buy a product
 
-На странице появится зеленое сообщение: "✅ Спасибо! Ваше сообщение успешно отправлено"
-В терминале с запущенным сервером появится:
-text
-==================================================
-📬 Сообщение от Иван
-📧 Email: ivan@example.com
-💬 Сообщение: Здравствуйте! Хочу купить товар
-=================================================
+## Functionality
 
-5. Запустить сервер
-python manage.py runserver
+## Product List
 
-6. Открыть в браузере
-http://127.0.0.1:8000/
+All products displayed as cards
+Description truncated to 100 characters (|truncatechars:100)
+Pagination (6 products per page)
+Link to each product's detail page
 
+## Product Detail Page
 
-### Функциональность
+Full product information: name, description, price, category, creation/update dates
+Image display (if uploaded)
+Button to return to product list
 
-#### ✅ Список товаров (product_list)
-- Отображение всех товаров в виде карточек
-- Обрезка описания до 100 символов (`|truncatechars:100`)
-- Пагинация (6 товаров на страницу)
-- Ссылка на детальную страницу каждого товара
+## Add Product
 
-#### ✅ Детальная страница (product_detail)
-- Полная информация о товаре: название, описание, цена, категория, даты создания/обновления
-- Отображение изображения (если загружено)
-- Кнопка возврата к списку
+ModelForm-based form
+Image upload support
+Data validation
+Redirect to the created product's detail page
 
-#### ✅ Добавление товара (product_create)
-- Форма на основе `ModelForm`
-- Поддержка загрузки изображений
-- Валидация данных
-- Перенаправление на карточку созданного товара
+## Pagination
 
-#### ✅ Пагинация
-- Постраничный вывод товаров (6 шт.)
-- Навигационные кнопки: «Первая», «Назад», номера страниц, «Вперед», «Последняя»
-- Отображение информации о количестве товаров и текущем диапазоне
+Page-by-page output (6 items per page)
+Navigation buttons: First, Previous, page numbers, Next, Last
+Information about total item count and current range
 
-#### ✅ Навигация
-- Адаптивное меню с подсветкой активного пункта
-- Ссылки: «Каталог», «Добавить товар», «Админка» (только для авторизованных)
+## Navigation
 
-### Форма обратной связи (контакты)
-- Метод POST
-- Данные (имя, email, сообщение) выводятся в консоль сервера
-- После отправки показывается сообщение об успехе
+Adaptive menu with active page highlighting
+Links: Catalog, Add Product, Admin (authorized users only)
 
-### Медиафайлы
-- Загруженные изображения сохраняются в `media/`
-- Для отображения в режиме разработки настроена раздача статики:
+## Media Files
+
+Uploaded images stored in media/
+Static file serving configured for development mode
